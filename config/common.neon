@@ -1,0 +1,40 @@
+application:
+	errorPresenter:
+		4xx: Error:Error4xx
+		5xx: Error:Error5xx
+	mapping: App\UI\*\**Presenter
+
+database:
+	dsn: 'sqlite::memory:'
+	user:
+	password:
+
+
+latte:
+	strictTypes: yes
+	strictParsing: yes
+	extensions:
+		- App\UI\Accessory\LatteExtension
+
+
+di:
+	export:
+		parameters: no
+		tags: no
+
+extensions:
+	resource: Contributte\DI\Extension\ResourceExtension
+	console: Contributte\Console\DI\ConsoleExtension(%consoleMode%)
+	api: Apitte\Core\DI\ApiExtension
+
+resource:
+	resources:
+		App\Api\V1\Controllers\:
+			# where the classes are located
+			paths: [%appDir%/Api/V1/Controllers]
+
+includes:
+    - doctrine.neon
+
+tracy:
+	showBar: true

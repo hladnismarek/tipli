@@ -1,0 +1,65 @@
+{
+  "name": "contributte/api-router",
+  "type": "library",
+  "description": "RESTful Router for your Apis in Nette Framework - created either directly or via annotation",
+  "keywords": [
+    "rest",
+    "api",
+    "routes",
+    "nette",
+    "router",
+    "restapi",
+    "restrouter",
+    "routing",
+    "route"
+  ],
+  "homepage": "https://github.com/contributte/api-router",
+  "license": [
+    "MIT"
+  ],
+  "authors": [
+    {
+      "name": "Pavel Janda",
+      "homepage": "http://paveljanda.com"
+    }
+  ],
+  "require": {
+    "php": ">=8.1",
+    "nette/http": "^3.2.3",
+    "nette/application": "^3.1.14",
+    "nette/di": "^3.1.8",
+    "contributte/utils": "^0.5.2 || ^0.6.0",
+    "doctrine/cache": "^1.13.0",
+    "doctrine/annotations": "^1.14.3"
+  },
+  "require-dev": {
+    "contributte/qa": "^0.4",
+    "contributte/tester": "^0.3",
+    "contributte/phpstan": "^0.1",
+    "mockery/mockery": "^1.6.6",
+    "tracy/tracy": "^2.10.5"
+  },
+  "autoload": {
+    "psr-4": {
+      "Contributte\\ApiRouter\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\": "tests"
+    }
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "config": {
+    "sort-packages": true,
+    "allow-plugins": {
+      "dealerdirect/phpcodesniffer-composer-installer": true
+    }
+  },
+  "extra": {
+    "branch-alias": {
+      "dev-master": "5.1.x-dev"
+    }
+  }
+}

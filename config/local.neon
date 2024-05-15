@@ -1,0 +1,7 @@
+parameters:
+    doctrine:
+        host: database
+        port: 3306
+        user: tipli
+        password: tipli
+        dbname: tiplidb

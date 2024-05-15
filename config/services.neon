@@ -1,0 +1,11 @@
+services:
+	router: App\Core\RouterFactory::createRouter
+search:
+	-	in: %appDir%
+		classes:
+			- *Factory
+			- *Facade
+			- *Repository
+api:
+	debug: %debugMode%
+	catchException: true

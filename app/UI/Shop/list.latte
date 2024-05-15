@@ -1,0 +1,14 @@
+{block content}
+<h1>Obchody</h1>
+<table>
+    <tbody>
+        {foreach $shops as $shop}
+        <tr>
+            <td>
+                <a href="obchod/{$shop->getName()|lower}">{$shop->getName()}</a>
+            </td>
+        </tr>
+        {/foreach}
+    </tbody>
+</table>
+{/block}

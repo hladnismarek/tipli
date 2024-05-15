@@ -1,0 +1,42 @@
+{block content}
+<style>
+    table,
+    tbody,
+    tr,
+    td
+     {
+        border: 1px solid black;
+    }
+</style>
+<h1>{$shopName}</h1>
+<h2>Aktuálne letáky</h2>
+<div>
+<table id="validLeaflets">
+    <tbody>
+        {foreach $validLeaflets as $leaflet}
+            <tr>
+                <td><a href="{$leaflet->getUrl()}">Zobrazit leták</a></td>
+                <td>{if $leaflet->getTitle() == null}{$leaflet->getShop()->getName()}{else}{$leaflet->getTitle()}{/if}</td>
+                <td>{$leaflet->getValidFrom()|date:'d.m.Y H:i:s'}</td>
+                <td>{$leaflet->getExpiredAt()|date:'d.m.Y H:i:s'}</td>
+            </tr>
+        {/foreach}
+    </tbody>
+</table>
+</div>
+<div>
+<h2>Neplatné letáky</h2>
+<table id="expiredLeaflets">
+    <tbody>
+            {foreach $expiredLeaflets as $leaflet}
+            <tr>
+                <td><a href="{$leaflet->getUrl()}">Zobrazit leták</a></td>
+                <td>{if $leaflet->getTitle() == null}{$leaflet->getShop()->getName()}{else}{$leaflet->getTitle()}{/if}</td>
+                <td>{$leaflet->getValidFrom()|date:'d.m.Y H:i:s'}</td>
+                <td>{$leaflet->getExpiredAt()|date:'d.m.Y H:i:s'}</td>
+            </tr>
+            {/foreach}
+    </tbody>
+</table>
+</div>
+{/block}

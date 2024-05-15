@@ -1,0 +1,22 @@
+version: '3.8'
+services:
+  php:
+    container_name: nette_php
+    image: php_8_1
+    build: build/php
+    volumes:
+      - ../:/var/www/html
+    ports:
+      - 8181:80
+  database:
+    container_name: mariadb
+    build: build/database
+    ports:
+      - 33306:3306
+    volumes:
+      - ./build/database/initdb.sql:/docker-entrypoint-initdb.d/initdb.sql
+    environment:
+      MYSQL_ROOT_PASSWORD: toor
+      MYSQL_USER: tipli
+      MYSQL_PASSWORD: tipli
+      MYSQL_DATABASE: tiplidb
