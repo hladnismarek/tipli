@@ -10,14 +10,18 @@ use Doctrine\ORM\Mapping\ClassMetadata;
 
 class LeafletRepository extends EntityRepository
 {
-    public function __construct(EntityManagerInterface $entityManager) {
+    public function __construct(
+		private EntityManagerInterface $entityManager,
+		private ShopRepository $shopRepository
+	) {
         parent::__construct($entityManager, new ClassMetadata(Leaflet::class));
     }
     public function saveLeaflet(Leaflet $leaflet): Leaflet
     {
-		$this->getEntityManager()->persist($leaflet);
-		$this->getEntityManager()->flush();
-
+		$shop = $this->shopRepository->createNewEntityOrGetExisting($leaflet->getShop());
+		$leaflet->setShop($shop);
+		$this->entityManager->persist($leaflet);
+		$this->entityManager->flush();
 
         return $leaflet;
     }
