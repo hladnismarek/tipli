@@ -6,6 +6,5 @@ search:
 			- *Factory
 			- *Facade
 			- *Repository
-api:
-	debug: %debugMode%
-	catchException: true
+			- *DTO
+			- *Mapper

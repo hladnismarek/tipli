@@ -6,6 +6,9 @@ use Apitte\Core\Annotation\Controller\Method;
 use Apitte\Core\Annotation\Controller\Path;
 use Apitte\Core\Http\ApiRequest;
 use Apitte\Core\Http\ApiResponse;
+use App\Facade\LeafletFacade;
+use App\Facade\ShopFacade;
+use App\Mapper\LeafletMapper;
 use App\Model\Leaflet;
 use App\Model\Shop;
 use App\Repository\LeafletRepository;
@@ -19,8 +22,9 @@ use Nette\Utils\Json;
 class LeafletController extends BaseV1Controller
 {
 	public function __construct(
-		private ShopRepository $shopRepository,
-		private LeafletRepository $leafletRepository
+		private LeafletFacade $leafletFacade,
+		//private ShopFacade $shopFacade,
+		private LeafletMapper $leafletMapper
 	)
 	{}
 	/**
@@ -30,16 +34,9 @@ class LeafletController extends BaseV1Controller
 	public function methodPost(ApiRequest $request, ApiResponse $response)
 	{
 		$leafletData = $request->getJsonBody();
-		$shop = $this->shopRepository->save($leafletData['shop']);
-		$leaflet = new Leaflet();
-		$leaflet->setShop($shop);
-		$leaflet->setUrl($leafletData['url']);
-		$leaflet->setTitle($leafletData['title']);
-		$leaflet->setValidFrom(new \DateTimeImmutable($leafletData['validFrom']));
-		$leaflet->setExpiredAt(new \DateTimeImmutable($leafletData['expiredAt']));
-
-		$this->leafletRepository->saveLeaflet($leaflet);
-		$response->writeJsonBody(['status'=>'success']);
+		$leafltetDTO = $this->leafletMapper->fromArray($leafletData)->toDTO();
+		$leaflet = $this->leafletFacade->saveLeaflet($leafltetDTO);
+		$response->writeJsonBody(['result' => 'ok', 'leafletId' => $leaflet->getId()]);
 
 		return $response;
 	}

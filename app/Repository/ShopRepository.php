@@ -2,6 +2,8 @@
 
 namespace App\Repository;
 
+use App\Model\AbstractBaseEntity;
+use App\Model\IEntity;
 use App\Model\Leaflet;
 use App\Model\Shop;
 use Doctrine\ORM\EntityManagerInterface;
@@ -14,18 +16,18 @@ class ShopRepository extends EntityRepository
 	{
 		parent::__construct($entityManager, new ClassMetadata(Shop::class));
 	}
-
-	public function save(string $shopName): Shop
+	public function createNewEntityOrGetExisting(Shop $shop)
 	{
-		$shop = $this->entityManager->getRepository(Shop::class)->findOneBy(['name'=>$shopName]);
-		if(!$shop)
+		$existingShop = $this->getShopByName($shop->getName());
+		if($existingShop)
 		{
-			$shop = new Shop();
-			$shop->setName($shopName);
-			$this->entityManager->persist($shop);
-			$this->entityManager->flush();
+			return $existingShop;
 		}
 
 		return $shop;
+	}
+	public function getShopByName(string $shopName): ?Shop
+	{
+		return $this->findOneBy(['name'=>$shopName]);
 	}
 }
